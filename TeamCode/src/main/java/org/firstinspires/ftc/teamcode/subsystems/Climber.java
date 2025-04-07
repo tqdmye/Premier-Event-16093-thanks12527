@@ -12,32 +12,32 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Config
 public class Climber extends SubsystemBase {
   public static long climberUpMs = 2000;
-  private final DcMotorEx climber;
+//  private final DcMotorEx climber;
 
   public Climber(final HardwareMap hardwareMap) {
-    climber = hardwareMap.get(DcMotorEx.class, "eee");
-    climber.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    climber.setDirection(DcMotorSimple.Direction.REVERSE);
+//    climber = hardwareMap.get(DcMotorEx.class, "elevatorMotor");
+//    climber.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//    climber.setDirection(DcMotorSimple.Direction.REVERSE);
   }
 
   public void elevate() {
-    climber.setPower(1);
+//    climber.setPower(1);
   }
 
   public void decline() {
-    climber.setPower(-1);
+//    climber.setPower(-1);
   }
 
   public void stop() {
-    climber.setPower(0);
+//    climber.setPower(0);
   }
 
   public void keep() {
-    climber.setPower(-0.2);
+//    climber.setPower(-0.2);
   }
 
   public void holdOn() {
-    climber.setPower(-0.5);
+//    climber.setPower(-0.5);
   }
 
   public Command elevateCommand() {

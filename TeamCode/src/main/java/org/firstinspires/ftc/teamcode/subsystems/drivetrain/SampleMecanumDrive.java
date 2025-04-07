@@ -92,7 +92,7 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
   private TrajectoryFollower medFollower;
   private TrajectoryFollower slowFollower;
 
-  private DcMotorEx leftFront, leftRear, rightRear, rightFront;
+  private DcMotorEx leftFront, leftBack, rightBack, rightFront;
   private List<DcMotorEx> motors;
 
 //  private GoBildaLocalizer od;
@@ -150,16 +150,16 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
     // TODO: adjust the names of the following hardware devices to match your configuration
 //    od = new GoBildaLocalizer(hardwareMap, DriveConstants.GoBildaLocalizerPerpendicularOffset);
     imu = new IMUEncoderLocalizer(hardwareMap);
-    leftFront = hardwareMap.get(DcMotorEx.class, "leftFrontMotor");
-    leftRear = hardwareMap.get(DcMotorEx.class, "leftBackMotor");
-    rightRear = hardwareMap.get(DcMotorEx.class, "rightBackMotor");
-    rightFront = hardwareMap.get(DcMotorEx.class, "rightFrontMotor");
+    leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+    leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+    rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+    rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
     leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-    leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+    leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
     rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
-    rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
+    rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
 
-    motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
+    motors = Arrays.asList(leftFront, leftBack, rightBack, rightFront);
 
     for (DcMotorEx motor : motors) {
       MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
@@ -487,8 +487,8 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
   @Override
   public void setMotorPowers(double v, double v1, double v2, double v3) {
     leftFront.setPower(v);
-    leftRear.setPower(v1);
-    rightRear.setPower(v2);
+    leftBack.setPower(v1);
+    rightBack.setPower(v2);
     rightFront.setPower(v3);
   }
 

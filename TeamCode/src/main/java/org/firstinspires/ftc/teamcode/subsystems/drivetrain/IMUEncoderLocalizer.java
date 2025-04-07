@@ -20,8 +20,10 @@ public class IMUEncoderLocalizer implements Localizer {
     private double lastXPos, lastYPos;
 
     public IMUEncoderLocalizer(HardwareMap hardwareMap) {
-        xEncoder = hardwareMap.get(DcMotorEx.class, "xEncoder");
-        yEncoder = hardwareMap.get(DcMotorEx.class, "yEncoder");
+//        xEncoder = hardwareMap.get(DcMotorEx.class, "xEncoder");
+//        yEncoder = hardwareMap.get(DcMotorEx.class, "yEncoder");
+        xEncoder = hardwareMap.get(DcMotorEx.class, "leftFront");
+        yEncoder = hardwareMap.get(DcMotorEx.class,"leftBack");
         imu = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(
