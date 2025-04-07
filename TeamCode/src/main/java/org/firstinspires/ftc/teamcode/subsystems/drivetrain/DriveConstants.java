@@ -23,8 +23,9 @@ import org.firstinspires.ftc.teamcode.utils.Translation2dHelperClass;
 @Config
 public class DriveConstants {
   public static final RobotType currentRobot = RobotType.GAMMA;
+    public static final int EnCODER_RESOLUTION_INCH_PER_TICK = 0; //todo
 
-  public static boolean isSquid = false;
+    public static boolean isSquid = false;
 
   public static double xPoseError = 0.15;
   public static double yPoseError = 0.15;
@@ -103,8 +104,8 @@ public class DriveConstants {
    */
   public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
       currentRobot == RobotType.GAMMA
-          ? RevHubOrientationOnRobot.LogoFacingDirection.DOWN
-          : RevHubOrientationOnRobot.LogoFacingDirection.UP;
+          ? RevHubOrientationOnRobot.LogoFacingDirection.DOWN //should have a check
+          : RevHubOrientationOnRobot.LogoFacingDirection.UP;  //should have a check
   public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
       currentRobot == RobotType.GAMMA
           ? RevHubOrientationOnRobot.UsbFacingDirection.LEFT

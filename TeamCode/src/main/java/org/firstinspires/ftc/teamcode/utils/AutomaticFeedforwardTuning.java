@@ -63,7 +63,7 @@ public class AutomaticFeedforwardTuning extends LinearOpMode {
       } else {
         double voltage = timer.time() * FF_RAMP_RATE;
         drive.runCharacterization(voltage);
-        velocitySamples.add(drive.getXVelocity());
+        velocitySamples.add(drive.getPoseVelocity().getX());
         voltageSamples.add(voltage);
       }
     }

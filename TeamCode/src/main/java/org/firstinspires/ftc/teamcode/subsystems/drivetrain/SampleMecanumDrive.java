@@ -40,7 +40,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
@@ -50,7 +49,6 @@ import java.util.List;
 import lombok.Setter;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.controllers.SQPIDHolonomicFollower;
-import org.firstinspires.ftc.teamcode.lib.roadrunner.drive.GoBildaLocalizer;
 import org.firstinspires.ftc.teamcode.lib.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.lib.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.lib.roadrunner.trajectorysequence.TrajectorySequenceRunner;
@@ -97,8 +95,7 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
   private DcMotorEx leftFront, leftRear, rightRear, rightFront;
   private List<DcMotorEx> motors;
 
-  private GoBildaLocalizer od;
-  private IMU imu;
+//  private GoBildaLocalizer od;
   private VoltageSensor batteryVoltageSensor;
 
   private List<Integer> lastEncPositions = new ArrayList<>();
@@ -107,6 +104,7 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
   public static double yawHeading = 0;
 
   private Telemetry telemetry;
+  IMUEncoderLocalizer imu;
 
   public SampleMecanumDrive(HardwareMap hardwareMap) {
     super(
@@ -150,8 +148,8 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
     }
 
     // TODO: adjust the names of the following hardware devices to match your configuration
-    od = new GoBildaLocalizer(hardwareMap, DriveConstants.GoBildaLocalizerPerpendicularOffset);
-
+//    od = new GoBildaLocalizer(hardwareMap, DriveConstants.GoBildaLocalizerPerpendicularOffset);
+    imu = new IMUEncoderLocalizer(hardwareMap);
     leftFront = hardwareMap.get(DcMotorEx.class, "leftFrontMotor");
     leftRear = hardwareMap.get(DcMotorEx.class, "leftBackMotor");
     rightRear = hardwareMap.get(DcMotorEx.class, "rightBackMotor");
@@ -185,7 +183,7 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
     List<Integer> lastTrackingEncVels = new ArrayList<>();
 
     // TODO: if desired, use setLocalizer() to change the localization method
-    setLocalizer(od);
+//    setLocalizer(od);
 
     fastTrajectorySequenceRunner =
         new TrajectorySequenceRunner(
@@ -226,9 +224,11 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
     this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
   }
 
-  public void resetPinpoint() {
-    od.recalibrateIMU();
-  }
+
+
+//  public void resetPinpoint() {
+//    od.recalibrateIMU();
+//  }
 
   public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
     return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
@@ -268,9 +268,9 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
     setWeightedDrivePower(new Pose2d(output, 0, 0));
   }
 
-  public double getXVelocity() {
-    return od.getPoseVelocity().getX();
-  }
+//  public double getXVelocity() {
+//    return od.getPoseVelocity().getX();
+//  }
 
   public void turn(double angle) {
     turnAsync(angle);
@@ -412,7 +412,8 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
 
   public void setFieldRelativeDrivePower(Pose2d drivePower) {
     Pose2d vel = drivePower;
-    double botHeading = od.getHeading() - yawHeading;
+//    double botHeading = od.getHeading() - yawHeading;
+    double botHeading = imu.getPoseEstimate().getHeading() - yawHeading;
 
     // Rotate the movement direction counter to the bot's rotation
     double rotX = vel.getX() * Math.cos(-botHeading) - vel.getY() * Math.sin(-botHeading);
@@ -425,11 +426,11 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
   }
 
   public double getHeading() {
-    return od.getHeading() - yawHeading;
+    return imu.getPoseEstimate().getHeading() - yawHeading;
   }
 
   public void resetHeading() {
-    yawHeading = od.getHeading();
+    yawHeading = imu.getPoseEstimate().getHeading();
   }
 
   public void setWeightedDrivePower(Pose2d drivePower) {
@@ -493,22 +494,22 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
 
   @Override
   public double getRawExternalHeading() {
-    return od.getHeading();
+    return imu.getPoseEstimate().getHeading();
   }
 
   @Override
   public Double getExternalHeadingVelocity() {
-    return od.getHeadingVelocity();
+    return imu.getHeadingVelocity();
   }
 
   public double getDeltaX(Pose2d initalPose) {
-    Pose2d currentPose = od.getPoseEstimate();
+    Pose2d currentPose = imu.getPoseEstimate();
     return (currentPose.getX() - initalPose.getX()) * Math.cos(currentPose.getHeading())
         + (currentPose.getY() - initalPose.getY()) * Math.sin(currentPose.getHeading());
   }
 
   public double getDeltaY(Pose2d initalPose) {
-    Pose2d currentPose = od.getPoseEstimate();
+    Pose2d currentPose = imu.getPoseEstimate();
     return (currentPose.getX() - initalPose.getX()) * Math.sin(currentPose.getHeading())
         + (currentPose.getY() - initalPose.getY()) * Math.cos(currentPose.getHeading());
   }
@@ -532,5 +533,7 @@ public class SampleMecanumDrive extends MecanumDrive implements Subsystem {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    imu.update();
+  }
 }
