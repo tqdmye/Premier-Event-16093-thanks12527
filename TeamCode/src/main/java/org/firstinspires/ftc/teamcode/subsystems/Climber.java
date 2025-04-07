@@ -15,7 +15,7 @@ public class Climber extends SubsystemBase {
   private final DcMotorEx climber;
 
   public Climber(final HardwareMap hardwareMap) {
-    climber = hardwareMap.get(DcMotorEx.class, "elevatorMotor");
+    climber = hardwareMap.get(DcMotorEx.class, "eee");
     climber.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     climber.setDirection(DcMotorSimple.Direction.REVERSE);
   }

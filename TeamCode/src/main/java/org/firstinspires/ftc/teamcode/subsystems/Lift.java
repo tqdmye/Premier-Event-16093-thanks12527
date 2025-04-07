@@ -47,8 +47,8 @@ public class Lift extends MotorPIDSlideSubsystem {
   @Getter @Setter private Goal goal = Goal.STOW;
 
   public Lift(final HardwareMap hardwareMap, Telemetry telemetry) {
-    liftMotorUp = new Motor(hardwareMap, "liftMotorUp");
-    liftMotorDown = new Motor(hardwareMap, "liftMotorDown");
+    liftMotorUp = new Motor(hardwareMap, "liftUp");
+    liftMotorDown = new Motor(hardwareMap, "liftDown");
     liftMotorUp.setInverted(true);
     liftMotorDown.setInverted(true);
     liftMotorUp.stopAndResetEncoder();
