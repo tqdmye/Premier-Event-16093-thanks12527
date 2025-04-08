@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
+//现在使用odometry computer，这个废止
+
 public class IMUEncoderLocalizer implements Localizer {
     private final DcMotorEx xEncoder;
     private final DcMotorEx yEncoder;

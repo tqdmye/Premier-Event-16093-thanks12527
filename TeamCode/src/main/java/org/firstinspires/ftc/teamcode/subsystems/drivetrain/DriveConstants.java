@@ -102,14 +102,8 @@ public class DriveConstants {
   /*
    * Adjust the orientations here to match your robot. See the FTC SDK documentation for details.
    */
-  public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
-      currentRobot == RobotType.GAMMA
-          ? RevHubOrientationOnRobot.LogoFacingDirection.DOWN //should have a check
-          : RevHubOrientationOnRobot.LogoFacingDirection.UP;  //should have a check
-  public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
-      currentRobot == RobotType.GAMMA
-          ? RevHubOrientationOnRobot.UsbFacingDirection.LEFT
-          : RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+  public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR = RevHubOrientationOnRobot.LogoFacingDirection.UP;
+  public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR = RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
   public static GoBildaPinpointDriver.EncoderDirection GoBildaXLocalizerDirection;
   public static GoBildaPinpointDriver.EncoderDirection GoBildaYLocalizerDirection;

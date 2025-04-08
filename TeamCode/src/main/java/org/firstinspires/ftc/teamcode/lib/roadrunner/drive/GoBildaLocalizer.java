@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.lib.gobilda.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.DriveConstants;
 import org.firstinspires.ftc.teamcode.utils.Translation2dHelperClass;
 
-//现在使用两个外置编码器+rev imu，所以这个废除
 @ExtensionMethod({GeomUtil.class})
 public class GoBildaLocalizer implements Localizer {
   private final GoBildaPinpointDriver odometry;

@@ -26,14 +26,14 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   // ---- Configs ----
   // SlideArmServo
   public static double SlideArmServo_AIM = 0.4;
-  public static double SlideArmServo_GRAB = 0.3;
+  public static double SlideArmServo_GRAB = 0.55;
   public static double SlideArmServo_HANDOFF = 0.57; // 0.56
-  public static double SlideArmServo_AIM_ = 0.428;
+  public static double SlideArmServo_AIM_ = 0.4;
   public static double SlideArmServo_PREAIM = 0.3;
   public static double SlideArmServo_FOLD = 0.731;
 
   // intakeClawServo
-  public static double IntakeClawServo_OPEN = 0.7;
+  public static double IntakeClawServo_OPEN = 0.8;
   public static double IntakeClawServo_OPENWIDER = 0.2;
   public static double IntakeClawServo_GRAB = 0.305;
   // wristServo
@@ -235,9 +235,9 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
 
   @Config
   public enum Goal {
-    STOW(0, 0, 0.2, IntakeClawServo_OPEN),
-    AIM(slideExtensionVal, SlideArmServo_AIM_, 0.2, IntakeClawServo_OPEN),
-    GRAB(slideExtensionVal, SlideArmServo_GRAB, 0.2, IntakeClawServo_GRAB),
+    STOW(0, 0, 0.8, IntakeClawServo_OPEN),
+    AIM(slideExtensionVal, SlideArmServo_AIM_, 1, IntakeClawServo_OPEN),
+    GRAB(slideExtensionVal, SlideArmServo_GRAB, 1, IntakeClawServo_GRAB),
     HANDOFF(-5, SlideArmServo_HANDOFF, 0.75, IntakeClawServo_GRAB),
     AUTOSWIPE(SlideMotor_extensionValue, 0.3, 0.45, IntakeClawServo_OPEN);
 

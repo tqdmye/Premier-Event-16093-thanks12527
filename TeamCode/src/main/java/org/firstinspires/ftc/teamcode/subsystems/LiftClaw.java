@@ -26,7 +26,7 @@ public class LiftClaw extends SubsystemBase {
   private boolean isClawOpen;
 
   public LiftClaw(final HardwareMap hardwareMap) {
-    liftArmServo = hardwareMap.get(Servo.class, "liftClawServo"); // 0.3 Up 0.7 Down
+    liftArmServo = hardwareMap.get(Servo.class, "liftArmServo"); // 0.3 Up 0.7 Down
     liftClawServo = hardwareMap.get(Servo.class, "liftClawServo"); // 0 Close 0.5 Open
     liftClawServo.setPosition(LiftArmServo_STOW);
     setServoController(true);

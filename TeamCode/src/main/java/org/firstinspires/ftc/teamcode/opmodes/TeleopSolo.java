@@ -80,7 +80,7 @@ public class TeleopSolo extends CommandOpMode {
             drive,
             () -> -gamepadEx1.getLeftY(),
             () -> gamepadEx1.getLeftX(),
-            () -> -gamepadEx1.getRightX(),
+            () -> gamepadEx1.getRightX(),
             () -> gamepadEx1.getButton(GamepadKeys.Button.LEFT_STICK_BUTTON),
             () -> gamepadEx1.getButton(GamepadKeys.Button.DPAD_LEFT)));
 
@@ -362,6 +362,9 @@ public class TeleopSolo extends CommandOpMode {
 
     telemetry.addData("Pose X", drive.getPoseEstimate().getX());
     telemetry.addData("Pose Y", drive.getPoseEstimate().getY());
+    telemetry.addData("armpose",lift.getCurrentPosition());
+    if(currentMode==DriverMode.SAMPLE)telemetry.addData("sample",drive.getPoseEstimate().getX());
+    if(currentMode==DriverMode.SPECIMEN)telemetry.addData("sample",drive.getPoseEstimate().getY());
     telemetry.update();
   }
 
