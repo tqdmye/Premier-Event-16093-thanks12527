@@ -37,14 +37,14 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   public static double IntakeClawServo_OPENWIDER = 0.2;
   public static double IntakeClawServo_GRAB = 0.305;
   // wristServo
-  public static double WristServo_UP = 0.05;
-  public static double WristServo_DOWN = 0.75;
-  public static double WristServo_FOLD = 0.47;
+  public static double WristServo_UP = 0.68;
+  public static double WristServo_DOWN = 0.97;
+  public static double WristServo_FOLD = 0.43;
 
   // wristTurnServo
-  public static double WristTurnServo_POS0 = 0.2;
-  public static double WristTurnServo_POS1 = 0.6;
-  public static double WristTurnServo_POS2 = 0.8;
+  public static double WristTurnServo_POS0 = 0.51;
+  public static double WristTurnServo_POS1 = 0.62;
+  public static double WristTurnServo_POS2 = 0.81;
   // slideMotor
   public static double SlideMotor_atSetPointTolerance = 18;
   public static double SlideMotor_extensionValue = 300;
