@@ -111,22 +111,22 @@ public class Vision extends SubsystemBase {
 
   @Override
   public void periodic() {
-    camera.updatePythonInputs(
-        new double[] {detectionColor.colorVal, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
-    result = camera.getLatestResult();
-
-    if (result != null) {
-      long staleness = result.getStaleness();
-      // Less than 100 milliseconds old
-      isDataOld = staleness >= 100;
-      telemetry.addData("Strafe Offset", getStrafeOffset());
-      telemetry.addData("Distance", getDistance());
-      telemetry.addData("Turn Servo Degrees", getTurnServoDegree());
+//    camera.updatePythonInputs(
+//        new double[] {detectionColor.colorVal, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
+//    result = camera.getLatestResult();
+//
+//    if (result != null) {
+//      long staleness = result.getStaleness();
+//      // Less than 100 milliseconds old
+//      isDataOld = staleness >= 100;
+//      telemetry.addData("Strafe Offset", getStrafeOffset());
+//      telemetry.addData("Distance", getDistance());
+//      telemetry.addData("Turn Servo Degrees", getTurnServoDegree());
 
       //      telemetry.addData("Tx", result.getTx());
       //      telemetry.addData("Ty", result.getTy());
       //      telemetry.addData("Ta", result.getTa());
       // telemetry.update();
-    }
+//    }
   }
 }
