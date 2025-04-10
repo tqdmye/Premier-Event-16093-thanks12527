@@ -16,23 +16,23 @@ public class MotorTest extends LinearOpMode {
 
   private final Telemetry telemetry_M =
       new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-  public static int encoder_position = 1150;
+  public static int encoder_position = 231;
   public static double max_power = 0.7;
   public static boolean read_only = false;
   public static boolean reverse_0 = false;
   public static boolean reset = true;
   public static boolean set_power_mode = true;
-  public static boolean brake = true;
+  public static boolean brake=false;
   public static String motor_name_0 = "slideMotor";
 
   @Override
   public void runOpMode() {
     DcMotorEx motor0 = hardwareMap.get(DcMotorEx.class, motor_name_0);
-    if (brake) {
-      motor0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }else{
+//    if (brake) {
+//      motor0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//    }else{
       motor0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-    }
+//    }
 
     motor0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     waitForStart();
