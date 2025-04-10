@@ -118,6 +118,7 @@ public abstract class AutoCommandBase extends LinearOpMode {
     return slide
         .slowHandoffCommand()
         .beforeStarting(liftClaw::openClaw)
+            .andThen()
         .andThen(new WaitCommand(handoff_slide2LiftCloseDelayMs))
         .andThen(liftClaw.closeClawCommand())
         .andThen(new WaitCommand(handoff_liftClose2OpenIntakeDelayMs))

@@ -362,7 +362,8 @@ public class TeleopSolo extends CommandOpMode {
 
     telemetry.addData("Pose X", drive.getPoseEstimate().getX());
     telemetry.addData("Pose Y", drive.getPoseEstimate().getY());
-    telemetry.addData("armpose",lift.getCurrentPosition());
+    telemetry.addData("Lift arm pose",lift.getCurrentPosition());
+    telemetry.addData("horizontal arm pos",slide.getCurrentPosition());
     if(currentMode==DriverMode.SAMPLE)telemetry.addData("sample",drive.getPoseEstimate().getX());
     if(currentMode==DriverMode.SPECIMEN)telemetry.addData("sample",drive.getPoseEstimate().getY());
     telemetry.update();

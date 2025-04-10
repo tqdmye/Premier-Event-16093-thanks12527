@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -40,6 +41,8 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   public static double WristServo_UP = 0.68;
   public static double WristServo_DOWN = 0.97;
   public static double WristServo_FOLD = 0.43;
+  public static double WristServo_STOW = 0.41;
+  public static double WristServo_HANDOFF = 0.41;
 
   // wristTurnServo
   public static double WristTurnServo_POS0 = 0.51;
@@ -98,6 +101,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
 
     slideMotor = hardwareMap.get(DcMotorEx.class, "slideMotor");
     slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    slideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -162,7 +166,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   public Command slowHandoffCommand() {
     return new SequentialCommandGroup(
         setGoalCommand(Goal.HANDOFF),
-        setTurnServoPosCommand(TurnServo.DEG_0, handoffCommand_wristTurn2wristHandoffDelayMs),
+        setTurnServoPosCommand(TurnServo.DEG_HANDOFF, handoffCommand_wristTurn2wristHandoffDelayMs),
         setServoPosCommand(
             wristServo, Goal.HANDOFF.wristPos, slowHandoffCommand_wristHandoff2ArmHandoffDelayMs),
         setServoPosCommand(
@@ -176,7 +180,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   public Command fastHandoffCommand() {
     return new SequentialCommandGroup(
         setGoalCommand(Goal.HANDOFF),
-        setTurnServoPosCommand(TurnServo.DEG_0, 0),
+        setTurnServoPosCommand(TurnServo.DEG_HANDOFF, 0),
         new InstantCommand(() -> wristServo.setPosition(Goal.HANDOFF.wristPos)),
         new InstantCommand(() -> slideArmServo.setPosition(Goal.HANDOFF.slideArmPos)),
         new InstantCommand(() -> slideExtensionVal = Goal.HANDOFF.slideExtension),
@@ -235,10 +239,10 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
 
   @Config
   public enum Goal {
-    STOW(0, 0, 0.8, IntakeClawServo_OPEN),
+    STOW(0, 0, WristServo_STOW, IntakeClawServo_OPEN),
     AIM(slideExtensionVal, SlideArmServo_AIM_, 1, IntakeClawServo_OPEN),
     GRAB(slideExtensionVal, SlideArmServo_GRAB, 1, IntakeClawServo_GRAB),
-    HANDOFF(-5, SlideArmServo_HANDOFF, 0.75, IntakeClawServo_GRAB),
+    HANDOFF(-5, SlideArmServo_HANDOFF, WristServo_HANDOFF, IntakeClawServo_GRAB),
     AUTOSWIPE(SlideMotor_extensionValue, 0.3, 0.45, IntakeClawServo_OPEN);
 
     public final double slideExtension;
@@ -351,11 +355,12 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   }
 
   public enum TurnServo {
-    DEG_0(0.25),
+    DEG_HANDOFF(0.53),
+    DEG_0(0.2),
     DEG_05(0.4),
     DEG_07(0.6),
     DEG_08(0.8),
-    DEG_INVERTED_HORIZ(0.925),
+    DEG_INVERTED_HORIZ(0),
     UNKNOWN(-1);
     public final double turnAngleDeg;
 
