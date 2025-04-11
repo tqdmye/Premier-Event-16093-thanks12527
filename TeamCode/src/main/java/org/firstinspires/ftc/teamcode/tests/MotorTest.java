@@ -16,13 +16,13 @@ public class MotorTest extends LinearOpMode {
 
   private final Telemetry telemetry_M =
       new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-  public static int encoder_position = 1150;
+  public static int encoder_position = 231;
   public static double max_power = 0.7;
   public static boolean read_only = false;
   public static boolean reverse_0 = false;
   public static boolean reset = true;
   public static boolean set_power_mode = true;
-  public static boolean brake = true;
+  public static boolean brake = false;
   public static String motor_name_0 = "slideMotor";
 
   @Override
@@ -58,11 +58,6 @@ public class MotorTest extends LinearOpMode {
           motor0.setTargetPosition(encoder_position);
           motor0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
           motor0.setPower(max_power);
-
-//          sleep(10000);
-//          motor0.setTargetPosition(0);
-//          motor0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//          motor0.setPower(max_power);
         }
         telemetry_M.addData("is busy_1", motor0.isBusy());
         //                telemetry_M.addData("encoder_1", motor0.getCurrentPosition());
