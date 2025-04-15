@@ -168,14 +168,14 @@ public class TeleopSolo extends CommandOpMode {
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) < 0.5
                     && slide.getGoal() == SlideSuperStructure.Goal.AIM
                     && currentMode == DriverMode.SAMPLE)
         .whenPressed(new SequentialCommandGroup(new InstantCommand(slide::backwardSlideExtension)));
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) < 0.5
                     && slide.getGoal() == SlideSuperStructure.Goal.AIM
                     && currentMode == DriverMode.SAMPLE)
         .whenPressed(new InstantCommand(slide::forwardSlideExtension));
@@ -268,7 +268,7 @@ public class TeleopSolo extends CommandOpMode {
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) < 0.5
                     && lift.getGoal() == Lift.Goal.STOW
                     && currentMode == DriverMode.SPECIMEN)
         .whenPressed(
@@ -278,14 +278,14 @@ public class TeleopSolo extends CommandOpMode {
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) < 0.5
                     && lift.getGoal() == Lift.Goal.HANG
                     && currentMode == DriverMode.SPECIMEN)
         .whenPressed(new InstantCommand(() -> lift.setGoal(Lift.Goal.PRE_HANG)));
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) < 0.5
                     && lift.getGoal() == Lift.Goal.PRE_HANG
                     && currentMode == DriverMode.SPECIMEN)
         .whenPressed(new InstantCommand(() -> lift.setGoal(Lift.Goal.HANG)));
