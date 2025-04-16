@@ -119,7 +119,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   public Command aimCommand() {
     return new SequentialCommandGroup(
         setGoalCommand(Goal.AIM),
-        setTurnServoPosCommand(TurnServo.DEG_0, aimCommand_wristTurn2ArmDelayMs),
+        setTurnServoPosCommand(TurnServo.DEG_08, aimCommand_wristTurn2ArmDelayMs),
         setServoPosCommand(slideArmServo, Goal.AIM.slideArmPos, aimCommand_Arm2OpenDelayMs),
         new InstantCommand(() -> wristServo.setPosition(Goal.AIM.wristPos)),
         new InstantCommand(() -> intakeClawServo.setPosition(Goal.AIM.clawAngle)));
@@ -290,7 +290,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
         turnServo = TurnServo.DEG_08;
         break;
       case DEG_08:
-        turnServo = TurnServo.DEG_08;
+        turnServo = TurnServo.DEG_0;
         break;
     }
     setServoPos(turnServo);
@@ -299,7 +299,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
   public void rightTurnServo() {
     switch (turnServo) {
       case DEG_0:
-        turnServo = TurnServo.DEG_0;
+        turnServo = TurnServo.DEG_08;
         break;
       case DEG_05:
         turnServo = TurnServo.DEG_0;
@@ -356,10 +356,10 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
 
   public enum TurnServo {
     DEG_HANDOFF(0.53),
-    DEG_0(0.2),
-    DEG_05(0.4),
-    DEG_07(0.6),
-    DEG_08(0.8),
+    DEG_0(0.1),
+    DEG_05(0.23),
+    DEG_07(0.37),
+    DEG_08(0.53),
     DEG_INVERTED_HORIZ(0),
     UNKNOWN(-1);
     public final double turnAngleDeg;
