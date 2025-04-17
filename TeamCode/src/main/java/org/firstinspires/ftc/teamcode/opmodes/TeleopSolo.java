@@ -47,6 +47,7 @@ public class TeleopSolo extends CommandOpMode {
   private ElapsedTime timer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
   private DriverMode currentMode = DriverMode.SAMPLE;
+  private DriverMode lastMode = DriverMode.SAMPLE;
 
   public static boolean setPose = false;
   public static Pose2dHelperClass Pose = new Pose2dHelperClass();
@@ -168,14 +169,14 @@ public class TeleopSolo extends CommandOpMode {
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) < 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.5
                     && slide.getGoal() == SlideSuperStructure.Goal.AIM
                     && currentMode == DriverMode.SAMPLE)
         .whenPressed(new SequentialCommandGroup(new InstantCommand(slide::backwardSlideExtension)));
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) < 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.5
                     && slide.getGoal() == SlideSuperStructure.Goal.AIM
                     && currentMode == DriverMode.SAMPLE)
         .whenPressed(new InstantCommand(slide::forwardSlideExtension));
@@ -268,7 +269,7 @@ public class TeleopSolo extends CommandOpMode {
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) < 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.5
                     && lift.getGoal() == Lift.Goal.STOW
                     && currentMode == DriverMode.SPECIMEN)
         .whenPressed(
@@ -278,14 +279,14 @@ public class TeleopSolo extends CommandOpMode {
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) < 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.5
                     && lift.getGoal() == Lift.Goal.HANG
                     && currentMode == DriverMode.SPECIMEN)
         .whenPressed(new InstantCommand(() -> lift.setGoal(Lift.Goal.PRE_HANG)));
 
     new FunctionalButton(
             () ->
-                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) < 0.5
+                gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.5
                     && lift.getGoal() == Lift.Goal.PRE_HANG
                     && currentMode == DriverMode.SPECIMEN)
         .whenPressed(new InstantCommand(() -> lift.setGoal(Lift.Goal.HANG)));
@@ -309,7 +310,12 @@ public class TeleopSolo extends CommandOpMode {
 
     // Climb Mode
     new FunctionalButton(() -> gamepadEx1.getButton(GamepadKeys.Button.DPAD_LEFT))
-        .whenPressed(new InstantCommand(() -> currentMode = DriverMode.CLIMB));
+            .whenPressed(new InstantCommand(() -> {
+              lastMode = currentMode;
+              currentMode = DriverMode.CLIMB;
+            }));
+
+
 
     new FunctionalButton(
             () ->
@@ -341,6 +347,16 @@ public class TeleopSolo extends CommandOpMode {
 
     new FunctionalButton(() -> MathUtil.isNear(90, timer.time(), 0.3))
         .whenPressed(new InstantCommand(() -> gamepad1.rumble(500)));
+
+    new FunctionalButton(
+            () ->
+                    gamepadEx1.getButton(GamepadKeys.Button.START)
+                            && currentMode == DriverMode.CLIMB)
+            .whenPressed(new InstantCommand(() -> {
+              drive.resetHeading();
+              currentMode = lastMode;
+            }));
+
   }
 
   @Override
@@ -365,8 +381,8 @@ public class TeleopSolo extends CommandOpMode {
     telemetry.addData("Lift arm pose",lift.getCurrentPosition());
     telemetry.addData("horizontal arm pos",slide.getCurrentPosition());
     telemetry.addData("currentMode",currentMode);
-//    if(currentMode==DriverMode.SAMPLE)telemetry.addData("sample",drive.getPoseEstimate().getX());
-//    if(currentMode==DriverMode.SPECIMEN)telemetry.addData("sample",drive.getPoseEstimate().getY());
+    telemetry.addData("lift.getGoal()",lift.getGoal());
+    telemetry.addData("LEFT_TRIGGER",gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
     telemetry.update();
   }
 
