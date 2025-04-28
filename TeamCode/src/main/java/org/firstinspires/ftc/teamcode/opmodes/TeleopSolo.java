@@ -349,9 +349,7 @@ public class TeleopSolo extends CommandOpMode {
         .whenPressed(new InstantCommand(() -> gamepad1.rumble(500)));
 
     new FunctionalButton(
-            () ->
-                    gamepadEx1.getButton(GamepadKeys.Button.START)
-                            && currentMode == DriverMode.CLIMB)
+            () -> gamepadEx1.getButton(GamepadKeys.Button.BACK))
             .whenPressed(new InstantCommand(() -> {
               drive.resetHeading();
               currentMode = lastMode;
