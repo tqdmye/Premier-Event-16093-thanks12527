@@ -410,7 +410,7 @@ public class TeleopSolo extends CommandOpMode {
     }
 
     // !Not Grab || !Fold
-
+// CHY fixed this bug!!!
     if (isLiftArmStow) {
       if (isSlideArmFold) {
         CommandScheduler.getInstance()
