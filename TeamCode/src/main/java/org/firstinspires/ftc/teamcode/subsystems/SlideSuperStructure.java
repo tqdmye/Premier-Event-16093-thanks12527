@@ -174,6 +174,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
             Goal.HANDOFF.slideArmPos,
             slowHandoffCommand_ArmHandoff2SlideRetractDelayMs),
         new InstantCommand(() -> slideExtensionVal = Goal.HANDOFF.slideExtension),
+            new WaitCommand(100),
         new WaitUntilCommand(this::slideMotorAtHome));
   }
 
@@ -183,6 +184,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
         setTurnServoPosCommand(TurnServo.DEG_HANDOFF, 0),
         new InstantCommand(() -> wristServo.setPosition(Goal.HANDOFF.wristPos)),
         new InstantCommand(() -> slideArmServo.setPosition(Goal.HANDOFF.slideArmPos)),
+            new WaitCommand(300),
         new InstantCommand(() -> slideExtensionVal = Goal.HANDOFF.slideExtension),
         new WaitUntilCommand(this::slideMotorAtHome));
   }
