@@ -17,11 +17,8 @@ public class LimeLightSample extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(11);
 
-        limelight.pipelineSwitch(1);
+        limelight.pipelineSwitch(0);
 
-        /*
-         * Starts polling for data.
-         */
         limelight.start();
 
         waitForStart();
@@ -31,14 +28,14 @@ public class LimeLightSample extends LinearOpMode {
             LLResult result = limelight.getLatestResult();
             long staleness = result.getStaleness();
             telemetry.addData("staleness",staleness);
-            double[] pythonOutputs = result.getPythonOutput();
-            if (pythonOutputs != null && pythonOutputs.length > 0) {
-                for(int i=0;i<pythonOutputs.length;i++){
-                    telemetry.addData("output "+i, pythonOutputs[i]);
-                }
+            if (result != null){
+                telemetry.addData("tx",result.getTx());
+                telemetry.addData("ty",result.getTy());
+                telemetry.addData("ta",result.getTa());
             }
             telemetry.update();
 
         }
+
     }
 }
