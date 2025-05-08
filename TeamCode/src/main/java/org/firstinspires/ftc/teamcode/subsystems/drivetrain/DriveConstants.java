@@ -111,52 +111,17 @@ public class DriveConstants {
   public static Translation2dHelperClass GoBildaLocalizerPerpendicularOffset;
 
   static {
-    switch (currentRobot) {
-      case ALPHA:
-        GoBildaXLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        GoBildaYLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
-        GoBildaLocalizerEncoderResolution =
+    GoBildaXLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
+    GoBildaYLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
+    GoBildaLocalizerEncoderResolution =
             GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD;
-        GoBildaLocalizerPerpendicularOffset = new Translation2dHelperClass(0, 156);
-        TRACK_WIDTH = 15.44;
-        kV = 0.0135;
-        kA = 0.002;
-        kStatic = 0.052;
-        MAX_VEL = 87.53357957701085;
-        MAX_ANG_VEL = Math.toRadians(141.57416123663535);
-        break;
-      case BETA:
-        GoBildaXLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
-        GoBildaYLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        GoBildaLocalizerEncoderResolution =
-            GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD;
-        GoBildaLocalizerPerpendicularOffset = new Translation2dHelperClass(-92.03742, 104.03742);
-        TRACK_WIDTH = 15.21;
-        kV = 0.015;
-        kA = 0.002;
-        kStatic = 0.052;
-        MAX_VEL = 63.0295389435408;
-        MAX_ANG_VEL = Math.toRadians(142.9192604427183);
-        break;
-      case GAMMA:
-        GoBildaXLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        GoBildaYLocalizerDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        GoBildaLocalizerEncoderResolution =
-            GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD;
-        GoBildaLocalizerPerpendicularOffset = new Translation2dHelperClass(0, -156);
-        TRACK_WIDTH = 13;
-        kV = 0.0113;
-        kA = 0.0025;
-        kStatic = 0.04;
-        MAX_VEL = 70.59477340026181;
-        MAX_ANG_VEL = Math.toRadians(139.1033922138209);
-        break;
-      default:
-        RobotLog.ee(
-            "DriveConstants",
-            "GoBildaPinpointDriver not configured for %s.",
-            currentRobot.toString());
-    }
+    GoBildaLocalizerPerpendicularOffset = new Translation2dHelperClass(0, 70);
+    TRACK_WIDTH = 15.44;
+    kV = 0.0135;
+    kA = 0.002;
+    kStatic = 0.052;
+    MAX_VEL = 87.53357957701085;
+    MAX_ANG_VEL = Math.toRadians(141.57416123663535);
   }
 
   public static double encoderTicksToInches(double ticks) {

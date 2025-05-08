@@ -245,7 +245,7 @@ public class SlideSuperStructure extends MotorPIDSlideSubsystem {
     STOW(0, 0, WristServo_STOW, IntakeClawServo_OPEN),
     AIM(slideExtensionVal, SlideArmServo_AIM_, 1, IntakeClawServo_OPEN),
     GRAB(slideExtensionVal, SlideArmServo_GRAB, 1, IntakeClawServo_GRAB),
-    PRE_HANDOFF(15, SlideArmServo_HANDOFF, WristServo_HANDOFF, IntakeClawServo_GRAB),
+    PRE_HANDOFF(40, SlideArmServo_HANDOFF, WristServo_HANDOFF, IntakeClawServo_GRAB),
     HANDOFF(-5, SlideArmServo_HANDOFF, WristServo_HANDOFF, IntakeClawServo_GRAB),
     AUTOSWIPE(SlideMotor_extensionValue, 0.3, 0.45, IntakeClawServo_OPEN);
 
