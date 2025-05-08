@@ -19,7 +19,7 @@ public class LiftClaw extends SubsystemBase {
   public static double LiftArmServo_SCORE_CHAMBER = 0.92;
   public static double LiftArmServo_AVOID_COLLISION = 0.4;
 
-  public static double ClawServo_CLOSE = 0.23;
+  public static double ClawServo_CLOSE = 0.47;
   public static double ClawServo_OPEN = 0.7;
   private final Servo liftArmServo;
   private final Servo liftClawServo;

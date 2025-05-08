@@ -47,7 +47,6 @@ public class TeleopSolo extends CommandOpMode {
   private ElapsedTime timer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
   private DriverMode currentMode = DriverMode.SAMPLE;
-  private DriverMode lastMode = DriverMode.SAMPLE;
 
   public static boolean setPose = false;
   public static Pose2dHelperClass Pose = new Pose2dHelperClass();
@@ -311,7 +310,6 @@ public class TeleopSolo extends CommandOpMode {
     // Climb Mode
     new FunctionalButton(() -> gamepadEx1.getButton(GamepadKeys.Button.DPAD_LEFT))
             .whenPressed(new InstantCommand(() -> {
-              lastMode = currentMode;
               currentMode = DriverMode.CLIMB;
             }));
 
@@ -343,16 +341,16 @@ public class TeleopSolo extends CommandOpMode {
     // =================================================================================
 
     new FunctionalButton(() -> MathUtil.isNear(60, timer.time(), 0.3))
-        .whenPressed(new InstantCommand(() -> gamepad1.rumble(500)));
+        .whenPressed(new InstantCommand(() -> gamepad1.rumble(1000)));
 
     new FunctionalButton(() -> MathUtil.isNear(90, timer.time(), 0.3))
-        .whenPressed(new InstantCommand(() -> gamepad1.rumble(500)));
+        .whenPressed(new InstantCommand(() -> gamepad1.rumble(1000)));
 
     new FunctionalButton(
             () -> gamepadEx1.getButton(GamepadKeys.Button.BACK))
             .whenPressed(new InstantCommand(() -> {
               drive.resetHeading();
-              currentMode = lastMode;
+              gamepad1.rumble(100);
             }));
 
   }
