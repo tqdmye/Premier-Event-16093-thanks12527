@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Vision extends SubsystemBase {
   private final Limelight3A camera;
 
-  private final Servo led;
+  //private final Servo led;
 
   public static double ledPWM = 0.5;
 
@@ -39,12 +39,12 @@ public class Vision extends SubsystemBase {
 
   public Vision(final HardwareMap hardwareMap, Telemetry telemetry) {
     camera = hardwareMap.get(Limelight3A.class, "limelight");
-    led = hardwareMap.get(Servo.class, "LED");
+    //led = hardwareMap.get(Servo.class, "LED");
     this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
   }
 
   public void setLEDPWM() {
-    led.setPosition(ledPWM);
+//    led.setPosition(ledPWM);
   }
 
   public void initializeCamera() {
